@@ -15,6 +15,7 @@ package com.powerflasher.SampleApp {
 		{
 			this.url = url;
 			this.iname = name;
+			drawImage();
 		}
 		
 		function drawImage():void
