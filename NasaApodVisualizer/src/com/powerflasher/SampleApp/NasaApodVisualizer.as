@@ -1,4 +1,6 @@
 package com.powerflasher.SampleApp {
+	import flash.net.URLRequestMethod;
+	import flash.text.TextField;
 	import flash.net.URLLoader;
 	import flash.display.Shape;
 	import flash.events.MouseEvent;
@@ -7,7 +9,9 @@ package com.powerflasher.SampleApp {
 	import flash.display.Sprite;
 	import flash.net.URLRequest;
 	import flash.display.Bitmap;
-	import com.adobe.serialization.json.JSON;
+
+	//import com.adobe.serialization.json.JSON;
+	
 	/**
 	 * @author Adam
 	 */
@@ -18,6 +22,7 @@ package com.powerflasher.SampleApp {
 		var maxRows: int = 5;
 		var image:Loader;
 		var requestor:URLLoader = new URLLoader();
+		var output:TextField = new TextField();
 		public function NasaApodVisualizer() {
 			var canvas : Shape = new Shape();
 			canvas.graphics.beginFill(0x000000);
@@ -42,13 +47,13 @@ package com.powerflasher.SampleApp {
 				}
 			}
 			
-			
-			
+			output.text = "Testing";
+			addChild(output);
 			//iconHolder.addEventListener(Event.COMPLETE, loadImages);
-			addChild(iconHolder);
+			//addChild(iconHolder);
 			
 			//addChild(canvas);
-
+			getURL();
 			
 		}
 		
@@ -61,17 +66,19 @@ package com.powerflasher.SampleApp {
 		
 		function getURL():void{
 			var request:URLRequest = new URLRequest();
-			request.url = "http://api.nasa.gov/planetary/apod?date=2015-04-13&api_key=DEMO_KEY";
+			
+			request.url = "https://api.nasa.gov/planetary/apod?date=2015-04-13&api_key=DEMO_KEY";
+			request.method = URLRequestMethod.GET;
 			requestor.addEventListener(Event.COMPLETE, onLoad);
 			requestor.load(request);
+			//output.text = request.method;
+			//output.text = requestor.data;
+			
 			
 		}
-		function onLoad(e: Event): void
-		{
-			var loader:URLLoader = URLLoader(e.target);
-			var jsonArray:Array = com.adobe.serialization.json.JSON.decode(loader.data);
-			trace(jsonArray[0].date);
-			
+		function onLoad(e: Event): void{
+			output.text = e.target.data;
 		}
+		
 	}
 }
