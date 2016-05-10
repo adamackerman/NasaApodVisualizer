@@ -17,6 +17,7 @@ package com.powerflasher.SampleApp {
 	 */
 	public class NasaApodVisualizer extends Sprite {
 		var ImageArray:Array = new Array();
+		var URLArray:Array = new Array();
 		var iconHolder:Sprite = new Sprite();
 		var rows: int = 1;
 		var maxRows: int = 5;
@@ -71,13 +72,22 @@ package com.powerflasher.SampleApp {
 			request.method = URLRequestMethod.GET;
 			requestor.addEventListener(Event.COMPLETE, onLoad);
 			requestor.load(request);
-			//output.text = request.method;
-			//output.text = requestor.data;
 			
 			
 		}
 		function onLoad(e: Event): void{
-			output.text = e.target.data;
+			var data:String = new String();
+			data = e.target.data;
+			var dataArray:Array = data.split(",");
+			for(var x:int = 0; x < dataArray.length; x++)
+			{
+				if(dataArray[x].search("url") != 0)
+				{
+					var pictureUrl:String = dataArray[x].substring(11, dataArray[x].length - 2);
+					URLArray.push(pictureUrl);
+					output.text = pictureUrl;
+				}
+			}
 		}
 		
 	}
