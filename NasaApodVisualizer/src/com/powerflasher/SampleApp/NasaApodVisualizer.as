@@ -1,4 +1,6 @@
 package com.powerflasher.SampleApp {
+	import flash.utils.setTimeout;
+	import flash.utils.setInterval;
 	import flash.net.URLRequestMethod;
 	import flash.text.TextField;
 	import flash.net.URLLoader;
@@ -49,12 +51,24 @@ package com.powerflasher.SampleApp {
 			}
 			
 			output.text = "Testing";
+			output.width = 400;
 			addChild(output);
 			//iconHolder.addEventListener(Event.COMPLETE, loadImages);
 			//addChild(iconHolder);
 			
 			//addChild(canvas);
-			getURL();
+			var d:Date = new Date();
+		
+			for(var x:int = 0; x < 20; x++)
+			{
+				setTimeout(function(){getURL(d)}, 5000);
+				d.setHours(d.getHours()-24);
+			}
+			for(var y:int = 0; y < 20; y++)
+			{
+				//output.text = URLArray.length +"";
+				//output.text = output.text + URLArray[y];
+			}
 			
 		}
 		
@@ -65,10 +79,12 @@ package com.powerflasher.SampleApp {
 			
 		}
 		
-		function getURL():void{
+		function getURL(date:Date):void{
 			var request:URLRequest = new URLRequest();
+			var day:String = new String();
+			day = date.getFullYear() + "-" + date.getMonth() + "-" + date.getDay();
 			
-			request.url = "https://api.nasa.gov/planetary/apod?date=2015-04-13&api_key=DEMO_KEY";
+			request.url = "https://api.nasa.gov/planetary/apod?date=" + day + "&api_key=DEMO_KEY";
 			request.method = URLRequestMethod.GET;
 			requestor.addEventListener(Event.COMPLETE, onLoad);
 			requestor.load(request);
@@ -79,15 +95,12 @@ package com.powerflasher.SampleApp {
 			var data:String = new String();
 			data = e.target.data;
 			var dataArray:Array = data.split(",");
-			for(var x:int = 0; x < dataArray.length; x++)
-			{
-				if(dataArray[x].search("url") != 0)
-				{
-					var pictureUrl:String = dataArray[x].substring(11, dataArray[x].length - 2);
-					URLArray.push(pictureUrl);
-					output.text = pictureUrl;
-				}
-			}
+			
+		
+			var pictureUrl:String = dataArray[dataArray.length - 1].substring(11, dataArray[dataArray.length - 1].length - 3);
+			URLArray.push(pictureUrl.toString());
+			output.text = output.text +"\n"  +pictureUrl;
+					
 		}
 		
 	}
