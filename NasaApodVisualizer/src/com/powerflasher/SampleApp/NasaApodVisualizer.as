@@ -61,8 +61,10 @@ package com.powerflasher.SampleApp {
 		
 			for(var x:int = 0; x < 20; x++)
 			{
-				setTimeout(function(){getURL(d)}, 5000);
-				d.setHours(d.getHours()-24);
+				getURL(d);
+				//setTimeout(function(){output.text += "x"}, 8000);
+				d.setDate(d.date -1);
+				
 			}
 			for(var y:int = 0; y < 20; y++)
 			{
@@ -82,7 +84,23 @@ package com.powerflasher.SampleApp {
 		function getURL(date:Date):void{
 			var request:URLRequest = new URLRequest();
 			var day:String = new String();
-			day = date.getFullYear() + "-" + date.getMonth() + "-" + date.getDay();
+			var zero:String = "0";
+			
+			//format date to fit in api request
+			day = date.getFullYear() + "-"; 
+			if((date.getMonth()+1)<=9)
+			{
+				 day += zero;
+			}
+			day += (date.getMonth() + 1) +"-";
+			if(date.getDate() <= 9)
+			{
+				day+=zero;
+			}
+			day+= date.getDate();
+			//////////////////////////////////
+			
+			output.text += day +"\n";
 			
 			request.url = "https://api.nasa.gov/planetary/apod?date=" + day + "&api_key=DEMO_KEY";
 			request.method = URLRequestMethod.GET;
@@ -99,7 +117,8 @@ package com.powerflasher.SampleApp {
 		
 			var pictureUrl:String = dataArray[dataArray.length - 1].substring(11, dataArray[dataArray.length - 1].length - 3);
 			URLArray.push(pictureUrl.toString());
-			output.text = output.text +"\n"  +pictureUrl;
+			output.text = output.text +"\n" + pictureUrl;
+			
 					
 		}
 		
