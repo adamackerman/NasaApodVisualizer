@@ -1,4 +1,5 @@
 package com.powerflasher.SampleApp {
+	import flash.events.EventDispatcher;
 	import flash.utils.setTimeout;
 	import flash.utils.setInterval;
 	import flash.net.URLRequestMethod;
@@ -24,7 +25,7 @@ package com.powerflasher.SampleApp {
 		var rows: int = 1;
 		var maxRows: int = 5;
 		var image:Loader;
-		var requestor:URLLoader = new URLLoader();
+		var requestor:URLLoader;
 		var output:TextField = new TextField();
 		public function NasaApodVisualizer() {
 			var canvas : Shape = new Shape();
@@ -105,8 +106,12 @@ package com.powerflasher.SampleApp {
 			
 			request.url = "https://api.nasa.gov/planetary/apod?date=" + day + "&api_key=DEMO_KEY";
 			request.method = URLRequestMethod.GET;
+			requestor = new URLLoader();
 			requestor.addEventListener(Event.COMPLETE, onLoad);
+			
 			requestor.load(request);
+			
+			
 			
 		}
 		function onLoad(e: Event): void{
