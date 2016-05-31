@@ -20,7 +20,6 @@ package com.powerflasher.SampleApp {
 	 */
 	public class NasaApodVisualizer extends Sprite {
 		var ImageArray:Array = new Array();
-		var URLArray:Array = new Array();
 		var iconHolder:Sprite = new Sprite();
 		var rows: int = 1;
 		var maxRows: int = 5;
@@ -63,15 +62,8 @@ package com.powerflasher.SampleApp {
 			for(var x:int = 0; x < 20; x++)
 			{
 				getURL(d);
-				//output.text = output.text + "o";
-				//setTimeout(function(){output.text += "x"}, 8000);
 				d.setDate(d.date -1);
 				
-			}
-			for(var y:int = 0; y < 20; y++)
-			{
-				//output.text = URLArray.length +"";
-				//output.text = output.text + URLArray[y];
 			}
 			
 		}
@@ -104,7 +96,7 @@ package com.powerflasher.SampleApp {
 			
 			//output.text += day +"\n";
 			
-			request.url = "https://api.nasa.gov/planetary/apod?date=" + day + "&api_key=DEMO_KEY";
+			request.url = "https://api.nasa.gov/planetary/apod?date=" + day + "&api_key=0XGnJvxIoRRuH9789ZuumkuAxq7AQE9mf6AQQXM1";
 			request.method = URLRequestMethod.GET;
 			requestor = new URLLoader();
 			requestor.addEventListener(Event.COMPLETE, onLoad);
@@ -124,8 +116,9 @@ package com.powerflasher.SampleApp {
 			
 		
 			var pictureUrl:String = dataArray[dataArray.length - 1].substring(11, dataArray[dataArray.length - 1].length - 3);
-			URLArray.push(pictureUrl.toString());
-			output.text = output.text +"\n" + pictureUrl;
+			//URLArray.push(pictureUrl.toString());
+			
+			output.text = output.text + "\n" + pictureUrl;
 				
 		}
 		
