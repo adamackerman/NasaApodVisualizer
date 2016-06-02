@@ -32,35 +32,16 @@ package com.powerflasher.SampleApp {
 			canvas.graphics.beginFill(0x000000);
 			canvas.graphics.drawRect(5, 5, 300, 300);
 			
-			for (var r : int = 0; r < maxRows; r++) {
-				for (var x : int = 0; x < 5; x++) {
-					// will call method to get url from apod
-					var url : String = "http://apod.nasa.gov/apod/image/1504/VolcanoWay_montufar_1181.jpg";
-
-					var image : Loader = new Loader();
-					image.x = 5 + (200 * x);
-					image.y = 5 + (200 * (rows - 1));
-
-					image.load(new URLRequest(url));
-
-					iconHolder.addChild(image);
-					image.contentLoaderInfo.addEventListener(Event.COMPLETE, imageLoaded);
-					if ((x + 1) % 5 == 0) {
-						rows++;
-					}
-				}
-			}
 			
 			output.text = "Testing";
 			output.width = 400;
-			addChild(output);
-			//iconHolder.addEventListener(Event.COMPLETE, loadImages);
-			//addChild(iconHolder);
+			//addChild(output);
+			
 			
 			//addChild(canvas);
 			var d:Date = new Date();
 		
-			for(var x:int = 0; x < 20; x++)
+			for(var x:int = 0; x < 30; x++)
 			{
 				getURL(d);
 				d.setDate(d.date -1);
@@ -69,6 +50,41 @@ package com.powerflasher.SampleApp {
 			
 			setTimeout(function(){
 			URLArray = output.text.split(",");
+			
+			var urlcount:int = 0;
+			var url : String = "";
+			output.text = "k"
+			for (var r : int = 0; r < maxRows; r++) {
+				for (var x : int = 0; x < 5; x++) {
+					
+					if(URLArray[urlcount].indexOf(".jpg") != -1)
+					{
+						url = URLArray[urlcount];
+						//output.text = output.text + "\n" + URLArray[urlcount];
+					}
+					
+					urlcount++;
+
+					var image : Loader = new Loader();
+					image.x = 5 + (200 * x);
+					image.y = 5 + (200 * (rows - 1));
+
+					
+					
+
+					iconHolder.addChild(image);
+					image.contentLoaderInfo.addEventListener(Event.COMPLETE, imageLoaded);
+					image.load(new URLRequest(url));
+					
+					if ((x + 1) % 5 == 0) {
+						rows++;
+					}
+				}
+			}
+			
+			addChild(iconHolder);
+			
+			
 			}, 4000);
 			
 			
@@ -77,9 +93,11 @@ package com.powerflasher.SampleApp {
 		}
 		
 		function imageLoaded(e:Event):void {
+			
    			var image:Bitmap = (Bitmap)(e.target.content);
 			image.width = 200;
 			image.height = 200;
+			output.text = output.text +"n"
 			
 		}
 		
