@@ -70,11 +70,11 @@ package com.powerflasher.SampleApp {
 					image.y = 5 + (200 * (rows - 1));
 
 					
-					
-
-					iconHolder.addChild(image);
 					image.contentLoaderInfo.addEventListener(Event.COMPLETE, imageLoaded);
 					image.load(new URLRequest(url));
+					iconHolder.addChild(image);
+					
+					
 					
 					if ((x + 1) % 5 == 0) {
 						rows++;
@@ -97,7 +97,7 @@ package com.powerflasher.SampleApp {
    			var image:Bitmap = (Bitmap)(e.target.content);
 			image.width = 200;
 			image.height = 200;
-			output.text = output.text +"n"
+			//output.text = output.text +"n"
 			
 		}
 		
