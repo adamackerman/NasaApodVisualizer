@@ -1,5 +1,5 @@
 package com.powerflasher.SampleApp {
-	import flash.events.EventDispatcher;
+	
 	import flash.utils.setTimeout;
 	import flash.utils.setInterval;
 	import flash.net.URLRequestMethod;
@@ -12,6 +12,7 @@ package com.powerflasher.SampleApp {
 	import flash.display.Sprite;
 	import flash.net.URLRequest;
 	import flash.display.Bitmap;
+	import caurina.transitions.*;
 
 	//import com.adobe.serialization.json.JSON;
 	
@@ -24,7 +25,7 @@ package com.powerflasher.SampleApp {
 		var URLArray:Array = [];
 		var rows: int = 1;
 		var maxRows: int = 5;
-		var image: Loader;
+		var image:Loader;
 		var requestor:URLLoader;
 		var output:TextField = new TextField();
 		public function NasaApodVisualizer() {
@@ -69,9 +70,9 @@ package com.powerflasher.SampleApp {
 					image = new Loader();
 					image.x = 5 + (100 * x);
 					image.y = 5 + (100 * (rows - 1));
-
 					
 					image.contentLoaderInfo.addEventListener(Event.COMPLETE, imageLoaded);
+					image.contentLoaderInfo.addEventListener(MouseEvent.CLICK, onOver);
 					image.load(new URLRequest(url));
 					iconHolder.addChild(image);
 					
@@ -85,11 +86,13 @@ package com.powerflasher.SampleApp {
 			
 			addChild(iconHolder);
 			
-			
 			}, 4000);
-			
-			
-			
+				
+		}
+		
+		function onOver(event: MouseEvent):void {
+			//Tweener.addTween(event.target, {scaleX:1,scaleY:1, time:1, transition:"easeoutelastic"});
+			//Tweener.addTween(event.target, {alpha:1, time:1, transition:"easeoutelastic"});
 			
 		}
 		
