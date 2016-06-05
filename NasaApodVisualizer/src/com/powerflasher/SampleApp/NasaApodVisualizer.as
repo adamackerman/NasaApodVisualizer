@@ -36,7 +36,8 @@ package com.powerflasher.SampleApp {
 			
 			output.text = "Testing";
 			output.width = 400;
-			//addChild(output);
+			output.y = 500;
+			addChild(output);
 			
 			
 			//addChild(canvas);
@@ -72,7 +73,7 @@ package com.powerflasher.SampleApp {
 					image.y = 5 + (100 * (rows - 1));
 					
 					image.contentLoaderInfo.addEventListener(Event.COMPLETE, imageLoaded);
-					image.contentLoaderInfo.addEventListener(MouseEvent.CLICK, onOver);
+					image.addEventListener(MouseEvent.CLICK, onOver);
 					image.load(new URLRequest(url));
 					iconHolder.addChild(image);
 					
@@ -91,9 +92,9 @@ package com.powerflasher.SampleApp {
 		}
 		
 		function onOver(event: MouseEvent):void {
-			//Tweener.addTween(event.target, {scaleX:1,scaleY:1, time:1, transition:"easeoutelastic"});
-			//Tweener.addTween(event.target, {alpha:1, time:1, transition:"easeoutelastic"});
-			
+			Tweener.addTween(event.target.content, {scaleX:.5,scaleY:.5, time:1, transition:"easeoutelastic"});
+			Tweener.addTween(event.target.content, {alpha:1, time:1, transition:"easeoutelastic"});
+			output.text = event.target.name;
 		}
 		
 		function imageLoaded(e:Event):void {
