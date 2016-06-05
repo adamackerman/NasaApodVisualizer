@@ -24,7 +24,7 @@ package com.powerflasher.SampleApp {
 		var URLArray:Array = [];
 		var rows: int = 1;
 		var maxRows: int = 5;
-		var image:Loader;
+		var image: Loader;
 		var requestor:URLLoader;
 		var output:TextField = new TextField();
 		public function NasaApodVisualizer() {
@@ -57,17 +57,18 @@ package com.powerflasher.SampleApp {
 			for (var r : int = 0; r < maxRows; r++) {
 				for (var x : int = 0; x < 5; x++) {
 					
-					if(URLArray[urlcount].indexOf(".jpg") != -1)
+					while(URLArray[urlcount].indexOf(".jpg") == -1)
 					{
-						url = URLArray[urlcount];
-						//output.text = output.text + "\n" + URLArray[urlcount];
+						urlcount++;
+						
 					}
-					
+					url = URLArray[urlcount];
+					output.text = output.text + "\n" + URLArray[urlcount];
 					urlcount++;
 
-					var image : Loader = new Loader();
-					image.x = 5 + (200 * x);
-					image.y = 5 + (200 * (rows - 1));
+					image = new Loader();
+					image.x = 5 + (100 * x);
+					image.y = 5 + (100 * (rows - 1));
 
 					
 					image.contentLoaderInfo.addEventListener(Event.COMPLETE, imageLoaded);
@@ -93,10 +94,10 @@ package com.powerflasher.SampleApp {
 		}
 		
 		function imageLoaded(e:Event):void {
-			
-   			var image:Bitmap = (Bitmap)(e.target.content);
-			image.width = 200;
-			image.height = 200;
+			image.removeEventListener(Event.COMPLETE, imageLoaded);
+   			var imageIcon:Bitmap = (Bitmap)(e.target.content);
+			imageIcon.width = 100;
+			imageIcon.height = 100;
 			//output.text = output.text +"n"
 			
 		}
