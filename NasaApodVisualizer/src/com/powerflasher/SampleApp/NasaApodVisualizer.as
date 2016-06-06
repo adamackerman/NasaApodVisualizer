@@ -31,7 +31,6 @@ package com.powerflasher.SampleApp {
 		var glowFilter:GlowFilter = new GlowFilter();
 		var dropShadowFilter:DropShadowFilter = new DropShadowFilter();
 		var output:TextField = new TextField();
-		var hovered:Boolean = false;
 		
 		
 		public function NasaApodVisualizer() {
@@ -80,6 +79,7 @@ package com.powerflasher.SampleApp {
 					
 					image.contentLoaderInfo.addEventListener(Event.COMPLETE, imageLoaded);
 					image.addEventListener(MouseEvent.MOUSE_OVER, onOver);
+					image.addEventListener(MouseEvent.MOUSE_OUT, onExit);
 					image.load(new URLRequest(url));
 					iconHolder.addChild(image);
 					
@@ -100,19 +100,14 @@ package com.powerflasher.SampleApp {
 		function onOver(event: MouseEvent):void {
 			//Tweener.addTween(event.target.content, {scaleX:.5,scaleY:.5, time:1, transition:"linear"});
 			//Tweener.addTween(event.target.content, {alpha:1, time:1, transition:"easeoutelastic"});
-			if(hovered == false)
-			{
-				event.target.content.filters = [dropShadowFilter];
-				hovered = true;
-			}
-			else
-			{
-				event.target.content.filters = [];
-				hovered = false;
-			}
 			
+		    event.target.content.filters = [dropShadowFilter];
 			output.text = event.target.name;
 			//image.content.filters = [glowFilter];
+		}
+		
+		function onExit(event: MouseEvent):void {
+			event.target.content.filters = [];
 		}
 		
 		function imageLoaded(e:Event):void {
