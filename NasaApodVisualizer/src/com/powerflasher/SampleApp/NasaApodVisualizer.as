@@ -31,6 +31,9 @@ package com.powerflasher.SampleApp {
 		var glowFilter:GlowFilter = new GlowFilter();
 		var dropShadowFilter:DropShadowFilter = new DropShadowFilter();
 		var output:TextField = new TextField();
+		var hovered:Boolean = false;
+		
+		
 		public function NasaApodVisualizer() {
 			var canvas : Shape = new Shape();
 			canvas.graphics.beginFill(0x000000);
@@ -72,11 +75,11 @@ package com.powerflasher.SampleApp {
 					urlcount++;
 
 					image = new Loader();
-					image.x = 5 + (100 * x);
-					image.y = 5 + (100 * (rows - 1));
+					image.x = 5 + (101 * x);
+					image.y = 5 + (101 * (rows - 1));
 					
 					image.contentLoaderInfo.addEventListener(Event.COMPLETE, imageLoaded);
-					image.addEventListener(MouseEvent.CLICK, onOver);
+					image.addEventListener(MouseEvent.MOUSE_OVER, onOver);
 					image.load(new URLRequest(url));
 					iconHolder.addChild(image);
 					
@@ -90,14 +93,24 @@ package com.powerflasher.SampleApp {
 			
 			addChild(iconHolder);
 			
-			}, 4000);
+			}, 5000);
 				
 		}
 		
 		function onOver(event: MouseEvent):void {
 			//Tweener.addTween(event.target.content, {scaleX:.5,scaleY:.5, time:1, transition:"linear"});
 			//Tweener.addTween(event.target.content, {alpha:1, time:1, transition:"easeoutelastic"});
-			event.target.content.filters = [dropShadowFilter];
+			if(hovered == false)
+			{
+				event.target.content.filters = [dropShadowFilter];
+				hovered = true;
+			}
+			else
+			{
+				event.target.content.filters = [];
+				hovered = false;
+			}
+			
 			output.text = event.target.name;
 			//image.content.filters = [glowFilter];
 		}
