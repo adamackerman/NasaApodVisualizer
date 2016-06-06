@@ -13,6 +13,7 @@ package com.powerflasher.SampleApp {
 	import flash.net.URLRequest;
 	import flash.display.Bitmap;
 	import caurina.transitions.*;
+	import flash.filters.*;
 
 	//import com.adobe.serialization.json.JSON;
 	
@@ -27,6 +28,8 @@ package com.powerflasher.SampleApp {
 		var maxRows: int = 5;
 		var image:Loader;
 		var requestor:URLLoader;
+		var glowFilter:GlowFilter = new GlowFilter();
+		var dropShadowFilter:DropShadowFilter = new DropShadowFilter();
 		var output:TextField = new TextField();
 		public function NasaApodVisualizer() {
 			var canvas : Shape = new Shape();
@@ -92,9 +95,11 @@ package com.powerflasher.SampleApp {
 		}
 		
 		function onOver(event: MouseEvent):void {
-			Tweener.addTween(event.target.content, {scaleX:.5,scaleY:.5, time:1, transition:"easeoutelastic"});
-			Tweener.addTween(event.target.content, {alpha:1, time:1, transition:"easeoutelastic"});
+			//Tweener.addTween(event.target.content, {scaleX:.5,scaleY:.5, time:1, transition:"linear"});
+			//Tweener.addTween(event.target.content, {alpha:1, time:1, transition:"easeoutelastic"});
+			event.target.content.filters = [dropShadowFilter];
 			output.text = event.target.name;
+			//image.content.filters = [glowFilter];
 		}
 		
 		function imageLoaded(e:Event):void {
