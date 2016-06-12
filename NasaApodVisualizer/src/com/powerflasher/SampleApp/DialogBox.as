@@ -22,10 +22,10 @@ public class DialogBox extends Sprite {
         //Initialise
         box = new Shape();
         addChild(box);
-		img.x = 100;
+		img.x = 200;
 		img.y = 100;
-		img.width = 100;
-		img.height = 100;
+		img.width = 150;
+		img.height = 150;
 		addChild(img);
 		
         //Render
