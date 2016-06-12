@@ -1,5 +1,6 @@
 package com.powerflasher.SampleApp {
 	
+	import flash.geom.Rectangle;
 	import flash.utils.setTimeout;
 	import flash.utils.setInterval;
 	import flash.net.URLRequestMethod;
@@ -31,6 +32,8 @@ package com.powerflasher.SampleApp {
 		var glowFilter:GlowFilter = new GlowFilter();
 		var dropShadowFilter:DropShadowFilter = new DropShadowFilter();
 		var output:TextField = new TextField();
+		var box:Rectangle = new Rectangle();
+		var dialog:DialogBox;
 		
 		
 		public function NasaApodVisualizer() {
@@ -38,12 +41,18 @@ package com.powerflasher.SampleApp {
 			canvas.graphics.beginFill(0x000000);
 			canvas.graphics.drawRect(5, 5, 300, 300);
 			
+			box.x = 100;
+			box.y = 600;
+			box.width = 150;
+			box.height = 150;
+			dialog =  new DialogBox(box);
 			
 			output.text = "Testing";
 			output.width = 400;
 			output.y = 500;
 			addChild(output);
-			
+			dialog.visible = false;
+			addChild(dialog);
 			
 			//addChild(canvas);
 			var d:Date = new Date();
@@ -80,6 +89,7 @@ package com.powerflasher.SampleApp {
 					image.contentLoaderInfo.addEventListener(Event.COMPLETE, imageLoaded);
 					image.addEventListener(MouseEvent.MOUSE_OVER, onOver);
 					image.addEventListener(MouseEvent.MOUSE_OUT, onExit);
+					image.addEventListener(MouseEvent.CLICK, onClick);
 					image.load(new URLRequest(url));
 					iconHolder.addChild(image);
 					
@@ -93,7 +103,7 @@ package com.powerflasher.SampleApp {
 			
 			addChild(iconHolder);
 			
-			}, 5000);
+			}, 4000);
 				
 		}
 		
@@ -104,6 +114,10 @@ package com.powerflasher.SampleApp {
 		    event.target.content.filters = [dropShadowFilter];
 			output.text = event.target.name;
 			//image.content.filters = [glowFilter];
+		}
+		
+		function onClick(event: MouseEvent):void {
+			dialog.visible = true;
 		}
 		
 		function onExit(event: MouseEvent):void {
