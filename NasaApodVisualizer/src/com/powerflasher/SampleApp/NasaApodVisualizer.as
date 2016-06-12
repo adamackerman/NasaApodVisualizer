@@ -33,6 +33,7 @@ package com.powerflasher.SampleApp {
 		var glowFilter:GlowFilter = new GlowFilter();
 		var dropShadowFilter:DropShadowFilter = new DropShadowFilter();
 		var output:TextField = new TextField();
+	    
 		var box:Rectangle = new Rectangle();
 		var dialog:DialogBox;
 		
@@ -42,18 +43,17 @@ package com.powerflasher.SampleApp {
 			canvas.graphics.beginFill(0x000000);
 			canvas.graphics.drawRect(5, 5, 300, 300);
 			
-			box.x = 100;
-			box.y = 600;
-			box.width = 150;
-			box.height = 150;
-			dialog =  new DialogBox(box);
+			box.x = 125;
+			box.y = 50;
+			box.width = 300;
+			box.height = 350;
+			//dialog =  new DialogBox(box, null);
 			
 			output.text = "Testing";
 			output.width = 400;
 			output.y = 500;
 			addChild(output);
-			dialog.visible = false;
-			addChild(dialog);
+			
 			
 			
 			
@@ -79,7 +79,6 @@ package com.powerflasher.SampleApp {
 					while(URLArray[urlcount].indexOf(".jpg") == -1)
 					{
 						urlcount++;
-						
 					}
 					url = URLArray[urlcount];
 					output.text = output.text + "\n" + URLArray[urlcount];
@@ -120,7 +119,10 @@ package com.powerflasher.SampleApp {
 		}
 		
 		function onClick(event: MouseEvent):void {
+			dialog = new DialogBox(box, event.target.content);
 			dialog.visible = true;
+			addChild(dialog);
+			iconHolder.visible = false;
 		}
 		
 		function onExit(event: MouseEvent):void {
@@ -178,8 +180,11 @@ package com.powerflasher.SampleApp {
 		
 			var pictureUrl:String = dataArray[dataArray.length - 1].substring(11, dataArray[dataArray.length - 1].length - 3);
 			//URLArray.push(pictureUrl.toString());
+			if(pictureUrl.indexOf(".jpg") != -1)
+			{
+				output.text = output.text + "," + pictureUrl;
+			}
 			
-			output.text = output.text + "," + pictureUrl;
 				
 		}
 		
