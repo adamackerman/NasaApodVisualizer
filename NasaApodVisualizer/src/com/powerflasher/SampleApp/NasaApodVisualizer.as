@@ -14,7 +14,6 @@ package com.powerflasher.SampleApp {
 	import flash.net.URLRequest;
 	import flash.display.Bitmap;
 	import caurina.transitions.*;
-	import org.as3commons.ui.layer.*;
 	import flash.filters.*;
 
 
@@ -36,7 +35,7 @@ package com.powerflasher.SampleApp {
 		var output:TextField = new TextField();
 		var box:Rectangle = new Rectangle();
 		var dialog:DialogBox;
-		var manager:PopUpManager;
+		
 		
 		public function NasaApodVisualizer() {
 			var canvas : Shape = new Shape();
@@ -53,10 +52,10 @@ package com.powerflasher.SampleApp {
 			output.width = 400;
 			output.y = 500;
 			addChild(output);
-			//dialog.visible = false;
-			//addChild(dialog);
-			var container : Sprite = stage.addChild(new Sprite()) as Sprite;
-			manager = new PopUpManager(container);
+			dialog.visible = false;
+			addChild(dialog);
+			
+			
 			
 			//addChild(canvas);
 			var d:Date = new Date();
@@ -121,7 +120,7 @@ package com.powerflasher.SampleApp {
 		}
 		
 		function onClick(event: MouseEvent):void {
-			manager.createPopUp(dialog);
+			dialog.visible = true;
 		}
 		
 		function onExit(event: MouseEvent):void {
