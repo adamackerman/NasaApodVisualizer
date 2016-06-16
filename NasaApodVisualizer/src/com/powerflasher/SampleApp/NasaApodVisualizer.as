@@ -60,7 +60,7 @@ package com.powerflasher.SampleApp {
 			
 		
 			
-			
+			backButton.visible = false;
 			addChild(backButton);
 			
 			output.text = "Testing";
@@ -118,7 +118,7 @@ package com.powerflasher.SampleApp {
 			
 			addChild(iconHolder);
 			
-			}, 6000);
+			}, 7000);
 				
 		}
 		
