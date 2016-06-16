@@ -1,5 +1,6 @@
 package com.powerflasher.SampleApp {
 	
+	import flash.display.SimpleButton;
 	import flash.geom.Rectangle;
 	import flash.utils.setTimeout;
 	import flash.utils.setInterval;
@@ -33,7 +34,9 @@ package com.powerflasher.SampleApp {
 		var glowFilter:GlowFilter = new GlowFilter();
 		var dropShadowFilter:DropShadowFilter = new DropShadowFilter();
 		var output:TextField = new TextField();
-	    
+		var backButton:Button;
+	    var backBbox:Rectangle = new Rectangle();
+		
 		var box:Rectangle = new Rectangle();
 		var dialog:DialogBox;
 		
@@ -43,18 +46,28 @@ package com.powerflasher.SampleApp {
 			canvas.graphics.beginFill(0x000000);
 			canvas.graphics.drawRect(5, 5, 300, 300);
 			
+			backBbox.x = 125;
+			backBbox.y = 50;
+			backBbox.width = 60;
+			backBbox.height = 30;
+			backButton = new Button(backBbox);
+			
 			box.x = 125;
 			box.y = 50;
 			box.width = 300;
 			box.height = 350;
 			//dialog =  new DialogBox(box, null);
 			
+		
+			
+			
+			addChild(backButton);
+			
 			output.text = "Testing";
 			output.width = 400;
 			output.y = 500;
 			addChild(output);
-			
-			
+		
 			
 			
 			//addChild(canvas);
@@ -105,7 +118,7 @@ package com.powerflasher.SampleApp {
 			
 			addChild(iconHolder);
 			
-			}, 4000);
+			}, 6000);
 				
 		}
 		
@@ -123,6 +136,7 @@ package com.powerflasher.SampleApp {
 			dialog.visible = true;
 			addChild(dialog);
 			iconHolder.visible = false;
+			backButton.visible = true;
 		}
 		
 		function onExit(event: MouseEvent):void {
