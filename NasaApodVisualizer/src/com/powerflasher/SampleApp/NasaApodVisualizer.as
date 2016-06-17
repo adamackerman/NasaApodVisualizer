@@ -61,6 +61,7 @@ package com.powerflasher.SampleApp {
 		
 			
 			backButton.visible = false;
+			backButton.box.addEventListener(MouseEvent.CLICK, onButtonClick);
 			addChild(backButton);
 			
 			output.text = "Testing";
@@ -137,6 +138,13 @@ package com.powerflasher.SampleApp {
 			addChild(dialog);
 			iconHolder.visible = false;
 			backButton.visible = true;
+		}
+		
+		function onButtonClick(event: MouseEvent):void {
+			dialog.visible = false;
+			iconHolder.visible = true;
+			backButton.visible = false;
+			
 		}
 		
 		function onExit(event: MouseEvent):void {

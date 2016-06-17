@@ -31,7 +31,7 @@ public class DialogBox extends Sprite {
         //Render
         with (box.graphics) {
             lineStyle(1);
-            beginFill(0, .4);
+            beginFill(0, .5);
             drawRect($.x, $.y, $.width, $.height);
             endFill();
         }
