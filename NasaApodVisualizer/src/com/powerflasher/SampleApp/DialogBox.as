@@ -1,4 +1,5 @@
 package com.powerflasher.SampleApp {
+	import flash.display.BitmapData;
 	import flash.display.Bitmap;
 	/**
 	 * @author Adam
@@ -14,19 +15,21 @@ public class DialogBox extends Sprite {
     //Vars
     protected var box:Shape;
     protected var yesBtn:Sprite;
-	public var img:Bitmap;
+	public var img:BitmapData;
+	public var image:Bitmap;
 
     //Constructor
-    public function DialogBox($:Rectangle, img: Bitmap):void {
+    public function DialogBox($:Rectangle, img: BitmapData):void {
 
         //Initialise
         box = new Shape();
         addChild(box);
-		img.x = 200;
-		img.y = 100;
-		img.width = 150;
-		img.height = 150;
-		addChild(img);
+		image = new Bitmap(img);
+		image.x = 200;
+		image.y = 100;
+		image.width = 150;
+		image.height = 150;
+		addChild(image);
 		
         //Render
         with (box.graphics) {

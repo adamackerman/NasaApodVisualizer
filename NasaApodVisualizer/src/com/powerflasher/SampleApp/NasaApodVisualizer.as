@@ -138,7 +138,7 @@ package com.powerflasher.SampleApp {
 		}
 		
 		function onClick(event: MouseEvent):void {
-			dialog = new DialogBox(box, event.target.content);
+			dialog = new DialogBox(box, event.target.content.bitmapData);
 			dialog.visible = true;
 			addChild(dialog);
 			addChild(backText);
