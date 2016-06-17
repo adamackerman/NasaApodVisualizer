@@ -1,5 +1,6 @@
 package com.powerflasher.SampleApp {
 	
+	import flash.text.TextFormat;
 	import flash.display.SimpleButton;
 	import flash.geom.Rectangle;
 	import flash.utils.setTimeout;
@@ -34,8 +35,7 @@ package com.powerflasher.SampleApp {
 		var glowFilter:GlowFilter = new GlowFilter();
 		var dropShadowFilter:DropShadowFilter = new DropShadowFilter();
 		var output:TextField = new TextField();
-		var backButton:Button;
-	    var backBbox:Rectangle = new Rectangle();
+		var backText:TextField = new TextField();
 		
 		var box:Rectangle = new Rectangle();
 		var dialog:DialogBox;
@@ -45,12 +45,12 @@ package com.powerflasher.SampleApp {
 			var canvas : Shape = new Shape();
 			canvas.graphics.beginFill(0x000000);
 			canvas.graphics.drawRect(5, 5, 300, 300);
+		
+			var format:TextFormat = new TextFormat();
+			format.size = 18;
+			format.underline = true;
 			
-			backBbox.x = 125;
-			backBbox.y = 50;
-			backBbox.width = 60;
-			backBbox.height = 30;
-			backButton = new Button(backBbox);
+			
 			
 			box.x = 125;
 			box.y = 50;
@@ -58,11 +58,16 @@ package com.powerflasher.SampleApp {
 			box.height = 350;
 			//dialog =  new DialogBox(box, null);
 			
-		
+			backText.defaultTextFormat = format;
+			backText.text = "Back";
+			backText.textColor = 0x0000FF;
+			backText.x = box.x;
+			backText.y = box.y;
+			backText.visible = false;
 			
-			backButton.visible = false;
-			backButton.box.addEventListener(MouseEvent.CLICK, onButtonClick);
-			addChild(backButton);
+
+			backText.addEventListener(MouseEvent.CLICK, onButtonClick, false);
+			//addChild(backButton);
 			
 			output.text = "Testing";
 			output.width = 400;
@@ -136,14 +141,16 @@ package com.powerflasher.SampleApp {
 			dialog = new DialogBox(box, event.target.content);
 			dialog.visible = true;
 			addChild(dialog);
+			addChild(backText);
 			iconHolder.visible = false;
-			backButton.visible = true;
+			backText.visible = true;
 		}
 		
 		function onButtonClick(event: MouseEvent):void {
 			dialog.visible = false;
 			iconHolder.visible = true;
-			backButton.visible = false;
+			backText.visible = false;
+			output.text = output.text + "f u";
 			
 		}
 		
