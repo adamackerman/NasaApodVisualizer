@@ -45,7 +45,7 @@ package com.powerflasher.SampleApp {
 		var dialog:DialogBox;
 		var i:int = 0;
 		
-		var loaded:Boolean = true;
+		var loaded:Boolean = false;
 		
 		
 		public function NasaApodVisualizer() {
@@ -94,7 +94,12 @@ package com.powerflasher.SampleApp {
 //				d.setDate(d.date -1);
 //				
 //			}
-			
+			var delay:int = 0;
+//			while(loaded == false)
+//			{
+//				delay++;
+//			}
+			output.text = ""+delay;
 			setTimeout(function(){
 			URLArray = output.text.split(",");
 			allDataArray = allData.text.split(";");
@@ -103,8 +108,8 @@ package com.powerflasher.SampleApp {
 			var url : String = "";
 			var date: String = "";
 			var dateField: TextField = new TextField();
-			var delay:int = 0;
-			//output.text = "k"
+			
+			output.text = "k"
 			for (var r : int = 0; r < maxRows; r++) {
 				
 				for (var x : int = 0; x < 5; x++) {
@@ -153,7 +158,7 @@ package com.powerflasher.SampleApp {
 			
 			addChild(iconHolder);
 			
-			}, 7000);
+			}, 50000);
 				
 		}
 	
@@ -180,7 +185,6 @@ package com.powerflasher.SampleApp {
 			dialog.visible = false;
 			iconHolder.visible = true;
 			backText.visible = false;
-			output.text = output.text + "f u";
 			
 		}
 		
@@ -194,7 +198,6 @@ package com.powerflasher.SampleApp {
 			imageIcon.width = 100;
 			imageIcon.height = 100;
 			
-			loaded = true;
 			
 //			var loader:Loader = e.target.loader;
 //   		    var index:int = iconHolder.getChildIndex(loader);
@@ -278,6 +281,9 @@ package com.powerflasher.SampleApp {
 				d.setDate(d.date - 1);
 				getURL(d);
 				i++;
+			}
+			else{
+				loaded = true;
 			}
 				
 		}
