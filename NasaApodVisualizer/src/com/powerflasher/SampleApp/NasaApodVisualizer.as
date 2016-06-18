@@ -37,11 +37,15 @@ package com.powerflasher.SampleApp {
 		var dropShadowFilter:DropShadowFilter = new DropShadowFilter();
 		var output:TextField = new TextField();
 		var backText:TextField = new TextField();
+		var d:Date;
 		
 		var allData:TextField = new TextField();
 		
 		var box:Rectangle = new Rectangle();
 		var dialog:DialogBox;
+		var i:int = 0;
+		
+		var loaded:Boolean = true;
 		
 		
 		public function NasaApodVisualizer() {
@@ -80,14 +84,16 @@ package com.powerflasher.SampleApp {
 			
 			
 			//addChild(canvas);
-			var d:Date = new Date();
-		
-			for(var x:int = 0; x < 30; x++)
-			{
-				getURL(d);
-				d.setDate(d.date -1);
-				
-			}
+			
+			
+			d = new Date();
+			getURL(d);
+//			for(var x:int = 0; x < 30; x++)
+//			{
+//				getURL(d);
+//				d.setDate(d.date -1);
+//				
+//			}
 			
 			setTimeout(function(){
 			URLArray = output.text.split(",");
@@ -97,11 +103,16 @@ package com.powerflasher.SampleApp {
 			var url : String = "";
 			var date: String = "";
 			var dateField: TextField = new TextField();
-			output.text = "k"
+			var delay:int = 0;
+			//output.text = "k"
 			for (var r : int = 0; r < maxRows; r++) {
 				
 				for (var x : int = 0; x < 5; x++) {
-					
+//					while(loaded == false)
+//					{
+//						delay++;
+//					}
+					loaded = false;
 					while(URLArray[urlcount].indexOf(".jpg") == -1)
 					{
 						urlcount++;
@@ -145,8 +156,8 @@ package com.powerflasher.SampleApp {
 			}, 7000);
 				
 		}
-		
-		
+	
+	
 		function onOver(event: MouseEvent):void {
 			//Tweener.addTween(event.target.content, {scaleX:.5,scaleY:.5, time:1, transition:"linear"});
 			//Tweener.addTween(event.target.content, {alpha:1, time:1, transition:"easeoutelastic"});
@@ -182,6 +193,8 @@ package com.powerflasher.SampleApp {
    			var imageIcon:Bitmap = (Bitmap)(e.target.content);
 			imageIcon.width = 100;
 			imageIcon.height = 100;
+			
+			loaded = true;
 			
 //			var loader:Loader = e.target.loader;
 //   		    var index:int = iconHolder.getChildIndex(loader);
@@ -260,7 +273,12 @@ package com.powerflasher.SampleApp {
 				output.text = output.text + "," + pictureUrl;
 				allData.text = allData.text + ";" + data;
 			}
-			
+			if(i < 30)
+			{
+				d.setDate(d.date - 1);
+				getURL(d);
+				i++;
+			}
 				
 		}
 		
