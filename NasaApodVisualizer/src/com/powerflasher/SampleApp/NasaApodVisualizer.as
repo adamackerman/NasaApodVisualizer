@@ -238,13 +238,14 @@ package com.powerflasher.SampleApp {
 			var data:String = new String();
 			data = e.target.data;
 			var dataArray:Array = data.split(",");
-			allData.text = allData.text + ";" + data;
+			
 		
 			var pictureUrl:String = dataArray[dataArray.length - 1].substring(11, dataArray[dataArray.length - 1].length - 3);
 			//URLArray.push(pictureUrl.toString());
 			if(pictureUrl.indexOf(".jpg") != -1)
 			{
 				output.text = output.text + "," + pictureUrl;
+				allData.text = allData.text + ";" + data;
 			}
 			
 				
