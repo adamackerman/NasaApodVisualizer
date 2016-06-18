@@ -99,6 +99,7 @@ package com.powerflasher.SampleApp {
 			var dateField: TextField = new TextField();
 			output.text = "k"
 			for (var r : int = 0; r < maxRows; r++) {
+				
 				for (var x : int = 0; x < 5; x++) {
 					
 					while(URLArray[urlcount].indexOf(".jpg") == -1)
@@ -114,8 +115,10 @@ package com.powerflasher.SampleApp {
 					urlcount++;
 
 					image = new Loader();
+					
 					image.x = 5 + (125 * x);
 					image.y = 5 + (125 * (rows - 1));
+					iconHolder.addChild(image);
 					
 					dateField.x = image.x + 20;
 					dateField.y = image.y + 105;
@@ -124,15 +127,16 @@ package com.powerflasher.SampleApp {
 					image.addEventListener(MouseEvent.MOUSE_OVER, onOver);
 					image.addEventListener(MouseEvent.MOUSE_OUT, onExit);
 					image.addEventListener(MouseEvent.CLICK, onClick);
-					image.load(new URLRequest(url));
-					iconHolder.addChild(image);
-					iconHolder.addChild(dateField);
 					
+					image.load(new URLRequest(url));
+					
+					iconHolder.addChild(dateField);
 					
 					
 					if ((x + 1) % 5 == 0) {
 						rows++;
 					}
+					
 				}
 			}
 			
@@ -141,6 +145,7 @@ package com.powerflasher.SampleApp {
 			}, 7000);
 				
 		}
+		
 		
 		function onOver(event: MouseEvent):void {
 			//Tweener.addTween(event.target.content, {scaleX:.5,scaleY:.5, time:1, transition:"linear"});
@@ -177,6 +182,14 @@ package com.powerflasher.SampleApp {
    			var imageIcon:Bitmap = (Bitmap)(e.target.content);
 			imageIcon.width = 100;
 			imageIcon.height = 100;
+			
+//			var loader:Loader = e.target.loader;
+//   		    var index:int = iconHolder.getChildIndex(loader);
+//    		// this will add the contents of the loader in the same order the loader was originally added
+//    		iconHolder.addChildAt(loader.content, index);
+//   			iconHolder.removeChild(loader);
+			
+			
 			//output.text = output.text +"n"
 			
 		}
