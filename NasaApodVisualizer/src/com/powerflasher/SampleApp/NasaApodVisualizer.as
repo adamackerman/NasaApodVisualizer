@@ -28,6 +28,7 @@ package com.powerflasher.SampleApp {
 		var ImageArray:Array = new Array();
 		var iconHolder:Sprite = new Sprite();
 		var URLArray:Array = [];
+		var allDataArray:Array = [];
 		var rows: int = 1;
 		var maxRows: int = 5;
 		var image:Loader;
@@ -36,6 +37,8 @@ package com.powerflasher.SampleApp {
 		var dropShadowFilter:DropShadowFilter = new DropShadowFilter();
 		var output:TextField = new TextField();
 		var backText:TextField = new TextField();
+		
+		var allData:TextField = new TextField();
 		
 		var box:Rectangle = new Rectangle();
 		var dialog:DialogBox;
@@ -88,9 +91,12 @@ package com.powerflasher.SampleApp {
 			
 			setTimeout(function(){
 			URLArray = output.text.split(",");
+			allDataArray = allData.text.split(";");
 			
 			var urlcount:int = 0;
 			var url : String = "";
+			var date: String = "";
+			var dateField: TextField = new TextField();
 			output.text = "k"
 			for (var r : int = 0; r < maxRows; r++) {
 				for (var x : int = 0; x < 5; x++) {
@@ -100,12 +106,19 @@ package com.powerflasher.SampleApp {
 						urlcount++;
 					}
 					url = URLArray[urlcount];
+					dateField = new TextField();
+					date = getDate(allDataArray[urlcount]);
+					dateField.text = date;
+					
 					output.text = output.text + "\n" + URLArray[urlcount];
 					urlcount++;
 
 					image = new Loader();
-					image.x = 5 + (101 * x);
-					image.y = 5 + (101 * (rows - 1));
+					image.x = 5 + (125 * x);
+					image.y = 5 + (125 * (rows - 1));
+					
+					dateField.x = image.x + 20;
+					dateField.y = image.y + 105;
 					
 					image.contentLoaderInfo.addEventListener(Event.COMPLETE, imageLoaded);
 					image.addEventListener(MouseEvent.MOUSE_OVER, onOver);
@@ -113,6 +126,7 @@ package com.powerflasher.SampleApp {
 					image.addEventListener(MouseEvent.CLICK, onClick);
 					image.load(new URLRequest(url));
 					iconHolder.addChild(image);
+					iconHolder.addChild(dateField);
 					
 					
 					
@@ -167,6 +181,25 @@ package com.powerflasher.SampleApp {
 			
 		}
 		
+		function getDate(data:String):String {
+			var DataArray:Array = data.split(";");
+			var date:String = new String();
+			for(var x:int = 0; x < DataArray.length; x++)
+			{
+				var dateArray:Array = DataArray[x].split(",");
+				for(var y: int = 0; y < dateArray.length; y++)
+				 {
+					if (dateArray[y].indexOf("date") != -1)
+					 {
+						date = dateArray[y].substring(dateArray[y].indexOf(":") + 3, dateArray[y].lastIndexOf("\""));
+						break;
+					}
+				}
+				
+			}
+			return date;
+		}
+		
 		function getURL(date:Date):void{
 			var request:URLRequest = new URLRequest();
 			var day:String = new String();
@@ -205,7 +238,7 @@ package com.powerflasher.SampleApp {
 			var data:String = new String();
 			data = e.target.data;
 			var dataArray:Array = data.split(",");
-			
+			allData.text = allData.text + ";" + data;
 		
 			var pictureUrl:String = dataArray[dataArray.length - 1].substring(11, dataArray[dataArray.length - 1].length - 3);
 			//URLArray.push(pictureUrl.toString());
