@@ -1,4 +1,5 @@
 package com.powerflasher.SampleApp {
+	import flash.text.TextField;
 	import flash.display.BitmapData;
 	import flash.display.Bitmap;
 	/**
@@ -17,9 +18,10 @@ public class DialogBox extends Sprite {
     protected var yesBtn:Sprite;
 	public var img:BitmapData;
 	public var image:Bitmap;
+	protected var bodyText:TextField;
 
     //Constructor
-    public function DialogBox($:Rectangle, img: BitmapData):void {
+    public function DialogBox($:Rectangle, img: BitmapData, txt:String):void {
 
         //Initialise
         box = new Shape();
@@ -30,6 +32,14 @@ public class DialogBox extends Sprite {
 		image.width = 150;
 		image.height = 150;
 		addChild(image);
+		
+		bodyText = new TextField;
+		bodyText.text = txt;
+		bodyText.x = 140;
+		bodyText.y = 300;
+		bodyText.width = 285;
+		bodyText.wordWrap = true;
+		addChild(bodyText);
 		
         //Render
         with (box.graphics) {

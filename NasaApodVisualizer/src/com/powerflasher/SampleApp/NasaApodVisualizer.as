@@ -149,6 +149,7 @@ package com.powerflasher.SampleApp {
 					iconHolder.addChild(dateField);
 					
 					
+					
 					if ((x + 1) % 5 == 0) {
 						rows++;
 					}
@@ -158,7 +159,7 @@ package com.powerflasher.SampleApp {
 			
 			addChild(iconHolder);
 			
-			}, 50000);
+			}, 45000);
 				
 		}
 	
@@ -173,7 +174,8 @@ package com.powerflasher.SampleApp {
 		}
 		
 		function onClick(event: MouseEvent):void {
-			dialog = new DialogBox(box, event.target.content.bitmapData);
+			var bodyText:String = getBody(allData.text, event.target.contentLoaderInfo.url);
+			dialog = new DialogBox(box, event.target.content.bitmapData, bodyText);
 			dialog.visible = true;
 			addChild(dialog);
 			addChild(backText);
@@ -198,21 +200,12 @@ package com.powerflasher.SampleApp {
 			imageIcon.width = 100;
 			imageIcon.height = 100;
 			
-			
-//			var loader:Loader = e.target.loader;
-//   		    var index:int = iconHolder.getChildIndex(loader);
-//    		// this will add the contents of the loader in the same order the loader was originally added
-//    		iconHolder.addChildAt(loader.content, index);
-//   			iconHolder.removeChild(loader);
-			
-			
 			//output.text = output.text +"n"
 			
 		}
 		
 		function getDate(data:String):String {
 			var DataArray:Array = data.split(";");
-			var date:String = new String();
 			for(var x:int = 0; x < DataArray.length; x++)
 			{
 				var dateArray:Array = DataArray[x].split(",");
@@ -220,13 +213,35 @@ package com.powerflasher.SampleApp {
 				 {
 					if (dateArray[y].indexOf("date") != -1)
 					 {
-						date = dateArray[y].substring(dateArray[y].indexOf(":") + 3, dateArray[y].lastIndexOf("\""));
-						break;
+						return dateArray[y].substring(dateArray[y].indexOf(":") + 3, dateArray[y].lastIndexOf("\""));
 					}
 				}
 				
 			}
-			return date;
+			return "";
+		}
+		
+		function getBody(data:String, url:String):String {
+			var DataArray:Array = data.split(";");
+			var body:String = new String();
+			for(var x:int = 0; x < DataArray.length; x++)
+			{
+				if(DataArray[x].indexOf(url) != -1)
+				{
+					var bodyArray:Array = DataArray[x].split("\",");
+					for(var y: int = 0; y < bodyArray.length; y++)
+					{
+						if(bodyArray[y].indexOf("explanation") != -1)
+						{
+							//body =  bodyArray[y].substring(bodyArray[y].indexOf(":") + 3, bodyArray[y].lastIndexOf("\""));
+							body = bodyArray[y].substring(bodyArray[y].indexOf(":") + 3);
+							//body = url;
+							break;
+						}
+					}
+				}
+			}
+			return body;
 		}
 		
 		function getURL(date:Date):void{
