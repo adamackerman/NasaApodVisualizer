@@ -113,10 +113,6 @@ package com.powerflasher.SampleApp {
 			for (var r : int = 0; r < maxRows; r++) {
 				
 				for (var x : int = 0; x < 5; x++) {
-//					while(loaded == false)
-//					{
-//						delay++;
-//					}
 					loaded = false;
 					while(URLArray[urlcount].indexOf(".jpg") == -1)
 					{
@@ -175,7 +171,8 @@ package com.powerflasher.SampleApp {
 		
 		function onClick(event: MouseEvent):void {
 			var bodyText:String = getBody(allData.text, event.target.contentLoaderInfo.url);
-			dialog = new DialogBox(box, event.target.content.bitmapData, bodyText);
+			var titleText:String = getTitle(allData.text, event.target.contentLoaderInfo.url);
+			dialog = new DialogBox(box, event.target.content.bitmapData, bodyText, titleText);
 			dialog.visible = true;
 			addChild(dialog);
 			addChild(backText);
@@ -244,21 +241,27 @@ package com.powerflasher.SampleApp {
 			return body;
 		}
 		
-		function getTitle(data:String):String {
+		function getTitle(data:String, url:String):String {
 			var DataArray:Array = data.split(";");
+			var titlestring:String = new String();
 			for(var x:int = 0; x < DataArray.length; x++)
 			{
-				var titleArray:Array = DataArray[x].split(",");
-				for(var y: int = 0; y < titleArray.length; y++)
-				 {
-					if (titleArray[y].indexOf("\"title\"") != -1)
-					 {
-						return titleArray[y].substring(titleArray[y].indexOf(":") + 3, titleArray[y].lastIndexOf("\""));
+				if(DataArray[x].indexOf(url) != -1)
+				{
+					var titleArray:Array = DataArray[x].split(",");
+					for(var y: int = 0; y < titleArray.length; y++)
+				 	{
+						if (titleArray[y].indexOf("\"title\"") != -1)
+						{
+							titlestring = titleArray[y].substring(titleArray[y].indexOf(":") + 3, titleArray[y].lastIndexOf("\""));
+							break;
+						}
 					}
 				}
 				
+				
 			}
-			return "";
+			return titlestring;
 		}
 		
 		function getURL(date:Date):void{
