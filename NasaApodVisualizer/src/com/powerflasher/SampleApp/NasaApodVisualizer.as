@@ -244,6 +244,23 @@ package com.powerflasher.SampleApp {
 			return body;
 		}
 		
+		function getTitle(data:String):String {
+			var DataArray:Array = data.split(";");
+			for(var x:int = 0; x < DataArray.length; x++)
+			{
+				var titleArray:Array = DataArray[x].split(",");
+				for(var y: int = 0; y < titleArray.length; y++)
+				 {
+					if (titleArray[y].indexOf("\"title\"") != -1)
+					 {
+						return titleArray[y].substring(titleArray[y].indexOf(":") + 3, titleArray[y].lastIndexOf("\""));
+					}
+				}
+				
+			}
+			return "";
+		}
+		
 		function getURL(date:Date):void{
 			var request:URLRequest = new URLRequest();
 			var day:String = new String();
