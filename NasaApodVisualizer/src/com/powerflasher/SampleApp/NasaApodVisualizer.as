@@ -17,9 +17,6 @@ package com.powerflasher.SampleApp {
 	import flash.display.Bitmap;
 	import caurina.transitions.*;
 	import flash.filters.*;
-
-
-	//import com.adobe.serialization.json.JSON;
 	
 	/**
 	 * @author Adam
@@ -74,7 +71,6 @@ package com.powerflasher.SampleApp {
 			
 
 			backText.addEventListener(MouseEvent.CLICK, onButtonClick, false);
-			//addChild(backButton);
 			
 			output.text = "Testing";
 			output.width = 400;
@@ -88,18 +84,7 @@ package com.powerflasher.SampleApp {
 			
 			d = new Date();
 			getURL(d);
-//			for(var x:int = 0; x < 30; x++)
-//			{
-//				getURL(d);
-//				d.setDate(d.date -1);
-//				
-//			}
-			var delay:int = 0;
-//			while(loaded == false)
-//			{
-//				delay++;
-//			}
-			output.text = ""+delay;
+
 			setTimeout(function(){
 			URLArray = output.text.split(",");
 			allDataArray = allData.text.split(";");
@@ -197,8 +182,6 @@ package com.powerflasher.SampleApp {
 			imageIcon.width = 100;
 			imageIcon.height = 100;
 			
-			//output.text = output.text +"n"
-			
 		}
 		
 		function getDate(data:String):String {
@@ -230,9 +213,7 @@ package com.powerflasher.SampleApp {
 					{
 						if(bodyArray[y].indexOf("explanation") != -1)
 						{
-							//body =  bodyArray[y].substring(bodyArray[y].indexOf(":") + 3, bodyArray[y].lastIndexOf("\""));
 							body = bodyArray[y].substring(bodyArray[y].indexOf(":") + 3);
-							//body = url;
 							break;
 						}
 					}
